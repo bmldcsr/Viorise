@@ -19,27 +19,6 @@
             overflow-x: hidden;
         }
 
-        /* --- Audio Player Styling --- */
-        .audio-player {
-            position: fixed;
-            bottom: 20px;
-            left: 20px;
-            z-index: 9999;
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            padding: 10px;
-            border-radius: 30px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .audio-player audio {
-            height: 30px;
-            width: 220px;
-        }
-
         /* --- Header & Navigation --- */
         header {
             position: fixed;
@@ -151,7 +130,7 @@
             gap: 30px;
         }
 
-        /* --- Product Card with Glassmorphism --- */
+        /* --- Product Card with Glassmorphism & Animations --- */
         .product-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -189,6 +168,7 @@
             transition: transform 0.5s ease;
         }
 
+        /* Zoom effect on hover */
         .product-card:hover img {
             transform: scale(1.1);
         }
@@ -236,25 +216,29 @@
 
         /* --- Keyframe Animations --- */
         @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-3px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(-3px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
 
         @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="audio-player">
-        <span style="font-size: 12px; font-weight: 600; color: #ff7eb3; padding-left: 5px;">🎵 BGM</span>
-        <audio controls autoplay loop>
-            <source src="musik/backsound.mp3" type="audio/mpeg">
-            Browser Anda tidak mendukung elemen audio.
-        </audio>
-    </div>
 
     <header>
         <a href="#" class="logo">VIORISE</a>
@@ -278,7 +262,7 @@
             
             <div class="product-card">
                 <div class="product-img-container">
-                    <img src="images/produk1.jpg" alt="Viorise Minimalist Watch">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 1">
                 </div>
                 <h3 class="product-title">Viorise Minimalist Watch</h3>
                 <div class="product-price">Rp 349.000</div>
@@ -287,7 +271,7 @@
 
             <div class="product-card">
                 <div class="product-img-container">
-                    <img src="images/produk2.jpg" alt="Aero Comfort Sneakers">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 2">
                 </div>
                 <h3 class="product-title">Aero Comfort Sneakers</h3>
                 <div class="product-price">Rp 529.000</div>
@@ -296,7 +280,7 @@
 
             <div class="product-card">
                 <div class="product-img-container">
-                    <img src="images/produk3.jpg" alt="Urban Sun Glasses">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 3">
                 </div>
                 <h3 class="product-title">Urban Sun Glasses</h3>
                 <div class="product-price">Rp 185.000</div>
@@ -305,7 +289,7 @@
 
             <div class="product-card">
                 <div class="product-img-container">
-                    <img src="images/produk4.jpg" alt="Premium Wireless Audio">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 4">
                 </div>
                 <h3 class="product-title">Premium Wireless Audio</h3>
                 <div class="product-price">Rp 799.000</div>
@@ -318,3 +302,6 @@
     <footer>
         &copy; 2026 Viorise Store. All rights reserved.
     </footer>
+
+</body>
+</html>
