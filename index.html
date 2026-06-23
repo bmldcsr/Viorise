@@ -372,4 +372,340 @@
             cursor: pointer;
             font-weight: 600;
             width: 100%;
-            transition: opacity 0
+            transition: opacity 0.3s;
+        }
+
+        .submit-btn:hover {
+            opacity: 0.9;
+        }
+
+        .map-wrapper {
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
+            min-height: 300px;
+        }
+
+        /* --- BARU: WhatsApp Section Slide Styling --- */
+        .whatsapp-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 70vh;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .wa-card {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            padding: 40px 30px;
+            border-radius: 24px;
+            max-width: 500px;
+            width: 100%;
+            backdrop-filter: blur(15px);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+        }
+
+        .wa-icon {
+            font-size: 55px;
+            margin-bottom: 15px;
+            display: inline-block;
+            background: #25D366;
+            width: 90px;
+            height: 90px;
+            line-height: 90px;
+            border-radius: 50%;
+            color: white;
+            box-shadow: 0 8px 25px rgba(37, 211, 102, 0.4);
+        }
+
+        .wa-card h2 {
+            font-size: 26px;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+
+        .wa-card p {
+            color: #a0a0a5;
+            font-size: 15px;
+            margin-bottom: 30px;
+            line-height: 1.6;
+        }
+
+        .wa-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            padding: 14px 30px;
+            background: linear-gradient(135deg, #25D366, #128C7E);
+            color: white;
+            text-decoration: none;
+            font-weight: 600;
+            border-radius: 50px;
+            width: 100%;
+            box-shadow: 0 4px 15px rgba(37, 211, 102, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .wa-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
+        }
+
+        /* --- Tombol Back to Top --- */
+        .back-to-top {
+            position: fixed;
+            bottom: 25px;
+            right: 25px;
+            background: rgba(255, 255, 255, 0.1);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-decoration: none;
+            z-index: 2000;
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        .back-to-top.show {
+            opacity: 1;
+            pointer-events: auto;
+        }
+
+        /* --- Footer --- */
+        footer {
+            text-align: center;
+            padding: 40px;
+            margin-top: 40px;
+            border-top: 1px solid rgba(255, 255, 255, 0.05);
+            color: #666;
+            font-size: 14px;
+        }
+
+        /* --- Keyframe Animations --- */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+
+    <audio id="bgMusic" loop>
+        <source src="music/musik.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <div class="music-controller">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+        <span class="music-status" id="musicStatus">Music: OFF</span>
+    </div>
+
+    <header>
+        <a href="#" class="logo" onclick="switchPage('home')">VIORISE</a>
+        <nav>
+            <a onclick="switchPage('home')" id="nav-home" class="active-nav">Home</a>
+            <a onclick="switchPage('products')" id="nav-products">Products <span class="cart-badge" id="cartCount">0</span></a>
+            <a onclick="switchPage('trending')" id="nav-trending">Trending</a>
+            <a onclick="switchPage('contact')" id="nav-contact">Contact</a>
+            <a onclick="switchPage('whatsapp')" id="nav-whatsapp">WhatsApp</a>
+        </nav>
+    </header>
+
+    <section class="page-section active-page" id="page-home">
+        <div class="hero">
+            <h1>Welcome to Viorise</h1>
+            <p>Temukan koleksi produk fashion dan item estetis terbaik untuk menunjang gaya hidup modernmu di sini.</p>
+            <a onclick="switchPage('products')" class="cta-btn">Jelajahi Produk</a>
+        </div>
+    </section>
+
+    <section class="page-section" id="page-products">
+        <div class="products-container">
+            <h2 class="section-title">Produk Terbaru</h2>
+            <div class="product-grid">
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 1">
+                    </div>
+                    <h3 class="product-title">Viorise Minimalist Watch</h3>
+                    <div class="product-price">Rp 349.000</div>
+                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 2">
+                    </div>
+                    <h3 class="product-title">Aero Comfort Sneakers</h3>
+                    <div class="product-price">Rp 529.000</div>
+                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 3">
+                    </div>
+                    <h3 class="product-title">Urban Sun Glasses</h3>
+                    <div class="product-price">Rp 185.000</div>
+                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 4">
+                    </div>
+                    <h3 class="product-title">Premium Wireless Audio</h3>
+                    <div class="product-price">Rp 799.000</div>
+                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="page-trending">
+        <div class="tiktok-container">
+            <h2 class="section-title">Trending on TikTok</h2>
+            <div class="tiktok-grid">
+                <div class="tiktok-wrapper">
+                    <iframe 
+                        src="https://www.tiktok.com/player/v1/7500644734814129414?rel=0&autoplay=0" 
+                        style="width: 100%; height: 580px; border: none; border-radius: 12px;" 
+                        allow="fullscreen; autoplay; encrypted-media; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+
+                <div class="tiktok-wrapper">
+                    <iframe 
+                        src="https://www.tiktok.com/player/v1/7643454598908349714?rel=0&autoplay=0" 
+                        style="width: 100%; height: 580px; border: none; border-radius: 12px;" 
+                        allow="fullscreen; autoplay; encrypted-media; picture-in-picture" 
+                        allowfullscreen>
+                    </iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="page-contact">
+        <div class="contact-container">
+            <h2 class="section-title">Hubungi Kami</h2>
+            <div class="contact-wrapper">
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Pesan Anda berhasil dikirim!');">
+                    <div class="form-group">
+                        <label for="name">Nama Lengkap</label>
+                        <input type="text" id="name" placeholder="Masukkan nama Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" placeholder="Masukkan email Anda" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Pesan Anda</label>
+                        <textarea id="message" rows="5" placeholder="Tulis pesan atau pertanyaan Anda di sini..." required></textarea>
+                    </div>
+                    <button type="submit" class="submit-btn">Kirim Pesan</button>
+                </form>
+
+                <div class="map-wrapper">
+                    <iframe width="100%" height="100%" src="https://www.openstreetmap.org/export/embed.html?bbox=110.30%2C-7.85%2C110.45%2C-7.70&amp;layer=mapnik" style="border: 0;"></iframe>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="page-whatsapp">
+        <div class="whatsapp-section">
+            <div class="wa-card">
+                <div class="wa-icon">💬</div>
+                <h2>Chat via WhatsApp</h2>
+                <p>Ada pertanyaan mengenai produk, kustomisasi style, atau kendala transaksi? Hubungi admin kami langsung untuk respon instan.</p>
+                <a href="https://wa.me/6288225370995?text=Halo%20Admin%20Viorise,%20saya%20ingin%20bertanya%20tentang%20produk..." target="_blank" class="wa-btn">
+                    Hubungi via WhatsApp
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <a href="#" class="back-to-top" id="backToTop">▲</a>
+
+    <footer>
+        © 2026 Viorise Store. All rights reserved.
+    </footer>
+
+    <script>
+        // --- Sistem Pengendali Musik ---
+        const myAudio = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const musicStatus = document.getElementById("musicStatus");
+
+        function toggleMusic() {
+            if (myAudio.paused) {
+                myAudio.play().catch(err => console.log("User interaction required"));
+                musicBtn.innerText = "⏸"; 
+                musicStatus.innerText = "Music: ON";
+                musicStatus.style.color = "#ff7eb3"; 
+            } else {
+                myAudio.pause();
+                musicBtn.innerText = "▶"; 
+                musicStatus.innerText = "Music: OFF";
+                musicStatus.style.color = "#a0a0a5";
+            }
+        }
+
+        // --- Sistem Slide Halaman Otomatis (SPA Engine) ---
+        function switchPage(pageId) {
+            const sections = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('nav a');
+            
+            sections.forEach(section => {
+                section.classList.remove('active-page');
+            });
+            navLinks.forEach(link => {
+                link.classList.remove('active-nav');
+            });
+
+            const targetPage = document.getElementById('page-' + pageId);
+            if(targetPage) {
+                targetPage.classList.add('active-page');
+                window.scrollTo(0,0);
+            }
+
+            const targetNav = document.getElementById('nav-' + pageId);
+            if(targetNav) {
+                targetNav.classList.add('active-nav');
+            }
+        }
+
+        // --- Fitur Interaktif Tambah Keranjang ---
+        let count = 0;
+        function addToCart() {
+            count++;
+            document.getElementById('cartCount').innerText = count;
+            alert("Produk berhasil ditambahkan ke keranjang!");
+        }
+
+        // --- Deteksi Scroll untuk Tombol Back To Top ---
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTopBtn.classList.add('show');
+            } else {
+                backToTopBtn.classList.remove('show');
+            }
+        });
+    </script>
+</body>
+</html>
