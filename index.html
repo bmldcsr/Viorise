@@ -126,7 +126,7 @@
             right: -15px;
         }
 
-        /* --- Sistem Slide Halaman Baru (Page Engine) --- */
+        /* --- Sistem Slide Halaman Baru (SPA Engine) --- */
         .page-section {
             display: none;
             opacity: 0;
@@ -156,9 +156,8 @@
         }
 
         .hero h1 {
-            font-size: clamp(32px, 5vw, 54px); /* Responsive font size */
+            font-size: clamp(32px, 5vw, 54px);
             margin-bottom: 20px;
-            animation: fadeInDown 1s ease forwards;
             line-height: 1.2;
         }
 
@@ -288,29 +287,4 @@
 
         .product-card:hover .buy-btn {
             background: white;
-            color: #121214;
-            border-color: white;
-        }
-
-        /* --- TikTok Section Styling --- */
-        .tiktok-container {
-            padding: 40px 5%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .tiktok-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 25px;
-            width: 100%;
-            max-width: 900px;
-            margin-top: 20px;
-        }
-
-        .tiktok-wrapper {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 20px;
-            padding:
+            color: #1212
