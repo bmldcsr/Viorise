@@ -257,6 +257,7 @@
             align-items: center;
         }
 
+        /* Membuat grid agar video bisa berjejer rapi jika layar lebar */
         .tiktok-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(325px, 1fr));
@@ -276,120 +277,6 @@
             display: flex;
             justify-content: center;
             width: 100%;
-        }
-
-        /* --- Contact Section Styling --- */
-        .contact-container {
-            padding: 60px 8%;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-        }
-
-        .contact-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 40px;
-            width: 100%;
-            max-width: 1000px;
-            margin-top: 20px;
-        }
-
-        /* Info Kiri (Alamat & Detail) */
-        .contact-info {
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .info-card {
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 12px;
-            transition: border-color 0.3s;
-        }
-
-        .info-card:hover {
-            border-color: rgba(255, 117, 140, 0.3);
-        }
-
-        .info-card h3 {
-            color: #ff7eb3;
-            font-size: 18px;
-            margin-bottom: 8px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-
-        .info-card p, .info-card a {
-            color: #a0a0a5;
-            font-size: 15px;
-            text-decoration: none;
-            line-height: 1.5;
-        }
-
-        .info-card a:hover {
-            color: #fff;
-        }
-
-        /* Form Kanan (Pesan Instan) */
-        .contact-form {
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            padding: 30px;
-            border-radius: 16px;
-            backdrop-filter: blur(10px);
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-        }
-
-        .form-group {
-            margin-bottom: 20px;
-        }
-
-        .form-group label {
-            display: block;
-            font-size: 14px;
-            color: #a0a0a5;
-            margin-bottom: 8px;
-            font-weight: 500;
-        }
-
-        .form-group input, .form-group textarea {
-            width: 100%;
-            padding: 12px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 8px;
-            color: white;
-            font-size: 15px;
-            transition: all 0.3s;
-        }
-
-        .form-group input:focus, .form-group textarea:focus {
-            outline: none;
-            border-color: #ff7eb3;
-            background: rgba(255, 255, 255, 0.08);
-            box-shadow: 0 0 8px rgba(255, 126, 179, 0.2);
-        }
-
-        .send-btn {
-            width: 100%;
-            padding: 12px;
-            background: linear-gradient(45deg, #ff758c, #ff7eb3);
-            border: none;
-            color: white;
-            font-weight: 600;
-            border-radius: 8px;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(255, 117, 140, 0.3);
-            transition: all 0.3s;
-        }
-
-        .send-btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 6px 18px rgba(255, 117, 140, 0.5);
         }
 
         /* --- Footer --- */
@@ -417,4 +304,120 @@
 <body>
 
     <audio id="bgMusic" loop>
-        <source src="music/musik.
+        <source src="music/musik.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <div class="music-controller">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+        <span class="music-status" id="musicStatus">Music: OFF</span>
+    </div>
+
+    <header>
+        <a href="#" class="logo">VIORISE</a>
+        <nav>
+            <a href="#">Home</a>
+            <a href="#products">Products</a>
+            <a href="#trending">Trending</a>
+            <a href="#">Contact</a>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <h1>Welcome to Viorise</h1>
+        <p>Temukan koleksi produk fashion dan item estetis terbaik untuk menunjang gaya hidup modernmu di sini.</p>
+        <a href="#products" class="cta-btn">Jelajahi Produk</a>
+    </section>
+
+    <section class="products-container" id="products">
+        <h2 class="section-title">Produk Terbaru</h2>
+        
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 1">
+                </div>
+                <h3 class="product-title">Viorise Minimalist Watch</h3>
+                <div class="product-price">Rp 349.000</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 2">
+                </div>
+                <h3 class="product-title">Aero Comfort Sneakers</h3>
+                <div class="product-price">Rp 529.000</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 3">
+                </div>
+                <h3 class="product-title">Urban Sun Glasses</h3>
+                <div class="product-price">Rp 185.000</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-container">
+                    <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 4">
+                </div>
+                <h3 class="product-title">Premium Wireless Audio</h3>
+                <div class="product-price">Rp 799.000</div>
+                <button class="buy-btn">Beli Sekarang</button>
+            </div>
+        </div>
+    </section>
+
+    <section class="tiktok-container" id="trending">
+        <h2 class="section-title">Trending on TikTok</h2>
+        
+        <div class="tiktok-grid">
+            <div class="tiktok-wrapper">
+                <iframe 
+                    src="https://www.tiktok.com/player/v1/7500644734814129414?rel=0&autoplay=0" 
+                    style="width: 100%; height: 580px; border: none; border-radius: 12px;" 
+                    allow="fullscreen; autoplay; encrypted-media; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+
+            <div class="tiktok-wrapper">
+                <iframe 
+                    src="https://www.tiktok.com/player/v1/7643454598908349714?rel=0&autoplay=0" 
+                    style="width: 100%; height: 580px; border: none; border-radius: 12px;" 
+                    allow="fullscreen; autoplay; encrypted-media; picture-in-picture" 
+                    allowfullscreen>
+                </iframe>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        &copy; 2026 Viorise Store. All rights reserved.
+    </footer>
+
+    <script>
+        const myAudio = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const musicStatus = document.getElementById("musicStatus");
+
+        function toggleMusic() {
+            if (myAudio.paused) {
+                myAudio.play();
+                musicBtn.innerText = "⏸"; 
+                musicStatus.innerText = "Music: ON";
+                musicStatus.style.color = "#ff7eb3"; 
+            } else {
+                myAudio.pause();
+                musicBtn.innerText = "▶"; 
+                musicStatus.innerText = "Music: OFF";
+                musicStatus.style.color = "#a0a0a5";
+            }
+        }
+    </script>
+
+</body>
+</html>
