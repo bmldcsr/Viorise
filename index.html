@@ -1,0 +1,565 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Viorise Store - Premium Jual Beli Pakaian</title>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* RESET & BASE STYLES */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        :root {
+            --bg-dark: #0B0F19;
+            --card-bg: rgba(255, 255, 255, 0.03);
+            --border-glass: rgba(255, 255, 255, 0.08);
+            --accent-neon: #00f2fe;
+            --accent-purple: #4facfe;
+            --text-light: #f3f4f6;
+            --text-muted: #9ca3af;
+        }
+
+        body {
+            background-color: var(--bg-dark);
+            color: var(--text-light);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        a {
+            text-decoration: none;
+            color: inherit;
+        }
+
+        /* NAVBAR WITH GLASSMORPHISM */
+        .navbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 8%;
+            background: rgba(11, 15, 25, 0.75);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid var(--border-glass);
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+        }
+
+        .logo {
+            font-size: 26px;
+            font-weight: 700;
+            letter-spacing: 2px;
+            color: #fff;
+        }
+
+        .logo span {
+            color: var(--accent-neon);
+        }
+
+        .nav-links {
+            display: flex;
+            list-style: none;
+        }
+
+        .nav-links li {
+            margin: 0 20px;
+        }
+
+        .nav-links a {
+            font-size: 15px;
+            font-weight: 400;
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a:hover, .nav-links a.active {
+            color: var(--accent-neon);
+        }
+
+        /* Garis bawah animasi saat hover */
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent-neon);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover::after, .nav-links a.active::after {
+            width: 100%;
+        }
+
+        .nav-icons {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            font-size: 18px;
+        }
+
+        .icon {
+            cursor: pointer;
+            transition: transform 0.2s;
+        }
+
+        .icon:hover {
+            transform: scale(1.1);
+        }
+
+        .icon-cart {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-count {
+            font-size: 10px;
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-neon));
+            color: #000;
+            font-weight: 700;
+            padding: 2px 6px;
+            border-radius: 50%;
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            box-shadow: 0 0 8px var(--accent-neon);
+        }
+
+        /* HERO SECTION */
+        .hero {
+            height: 85vh;
+            background: url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1500&q=80') no-repeat center center/cover;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            margin-top: 60px;
+        }
+
+        .hero-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(to bottom, rgba(11, 15, 25, 0.5), var(--bg-dark));
+        }
+
+        .hero-content {
+            position: relative;
+            z-index: 10;
+            max-width: 800px;
+            padding: 0 20px;
+        }
+
+        .tagline {
+            font-size: 14px;
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            color: var(--accent-neon);
+            font-weight: 600;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+
+        .hero-content h1 {
+            font-size: 56px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            letter-spacing: -1px;
+            background: linear-gradient(45deg, #fff, var(--text-muted));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .hero-content p {
+            font-size: 17px;
+            color: var(--text-muted);
+            margin-bottom: 35px;
+            font-weight: 300;
+        }
+
+        .hero-buttons {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+        }
+
+        .btn {
+            padding: 12px 35px;
+            font-weight: 600;
+            font-size: 14px;
+            letter-spacing: 1px;
+            border-radius: 30px;
+            transition: all 0.3s ease;
+            text-transform: uppercase;
+        }
+
+        .btn-primary {
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-neon));
+            color: #0b0f19;
+            box-shadow: 0 4px 15px rgba(0, 242, 254, 0.3);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0, 242, 254, 0.5);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255,255,255,0.05);
+            border-color: #fff;
+        }
+
+        /* PRODUCTS SECTION */
+        .products-section {
+            padding: 80px 8%;
+        }
+
+        .section-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+            margin-bottom: 40px;
+        }
+
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+        }
+
+        .section-subtitle {
+            font-size: 15px;
+            color: var(--text-muted);
+        }
+
+        .view-all {
+            color: var(--accent-neon);
+            font-size: 14px;
+            font-weight: 500;
+            transition: opacity 0.2s;
+        }
+
+        .view-all:hover {
+            opacity: 0.8;
+        }
+
+        /* PRODUCT GRID & GLASS CARDS */
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            gap: 30px;
+        }
+
+        .product-card {
+            background: var(--card-bg);
+            border: 1px solid var(--border-glass);
+            border-radius: 16px;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover {
+            transform: translateY(-8px);
+            border-color: rgba(0, 242, 254, 0.3);
+            box-shadow: 0 10px 30px rgba(0, 242, 254, 0.05);
+        }
+
+        .product-img-wrapper {
+            position: relative;
+            height: 340px;
+            background-color: rgba(255,255,255,0.02);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-bottom: 1px solid var(--border-glass);
+        }
+
+        .product-img {
+            font-weight: 600;
+            color: var(--text-muted);
+            letter-spacing: 1px;
+            font-size: 14px;
+            text-transform: uppercase;
+        }
+
+        /* Badges */
+        .badge {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+            padding: 4px 10px;
+            font-size: 11px;
+            font-weight: 700;
+            border-radius: 4px;
+        }
+
+        .badge-hot { background-color: #ef4444; color: #fff; }
+        .badge-discount { background-color: #eab308; color: #000; }
+        .badge-new { background-color: #10b981; color: #fff; }
+
+        .wishlist-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: #fff;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            backdrop-filter: blur(5px);
+            transition: background 0.2s;
+        }
+
+        .wishlist-btn:hover {
+            background: #ef4444;
+        }
+
+        /* Info Produk */
+        .product-info {
+            padding: 20px;
+        }
+
+        .category {
+            font-size: 12px;
+            color: var(--accent-neon);
+            text-transform: uppercase;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .product-info h3 {
+            font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .rating {
+            font-size: 12px;
+            margin-bottom: 12px;
+        }
+
+        .rating span {
+            color: var(--text-muted);
+            margin-left: 5px;
+        }
+
+        .price-box {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 15px;
+        }
+
+        .price {
+            font-size: 18px;
+            font-weight: 700;
+            color: #fff;
+        }
+
+        .old-price {
+            font-size: 14px;
+            color: var(--text-muted);
+            text-decoration: line-through;
+        }
+
+        /* Tombol Add To Cart */
+        .add-to-cart {
+            width: 100%;
+            background: transparent;
+            color: #fff;
+            border: 1px solid var(--border-glass);
+            padding: 12px;
+            border-radius: 8px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .product-card:hover .add-to-cart {
+            background: linear-gradient(45deg, var(--accent-purple), var(--accent-neon));
+            color: #0b0f19;
+            border-color: transparent;
+            font-weight: 600;
+            box-shadow: 0 4px 12px rgba(0, 242, 254, 0.2);
+        }
+
+        /* FOOTER */
+        footer {
+            background-color: #060911;
+            border-top: 1px solid var(--border-glass);
+            text-align: center;
+            padding: 40px 20px;
+            font-size: 14px;
+            color: var(--text-muted);
+            margin-top: 60px;
+        }
+
+        .logo-footer {
+            color: #fff;
+            font-weight: 700;
+            letter-spacing: 1px;
+        }
+
+        /* RESPONSIVE LAYOUT */
+        @media (max-width: 768px) {
+            .navbar { padding: 15px 5%; }
+            .nav-links { display: none; }
+            .hero-content h1 { font-size: 38px; }
+            .hero-content p { font-size: 15px; }
+            .hero-buttons { flex-direction: column; gap: 10px; padding: 0 40px; }
+            .section-header { flex-direction: column; align-items: flex-start; gap: 10px; }
+            .products-section { padding: 40px 5%; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <nav class="navbar">
+            <div class="logo">VIORISE<span>.</span></div>
+            <ul class="nav-links">
+                <li><a href="#" class="active">Home</a></li>
+                <li><a href="#">Shop</a></li>
+                <li><a href="#">New Arrivals</a></li>
+                <li><a href="#">Flash Sale</a></li>
+            </ul>
+            <div class="nav-icons">
+                <a href="#" class="icon">🔍</a>
+                <a href="#" class="icon-cart">
+                    🛒 <span class="cart-count">0</span>
+                </a>
+            </div>
+        </nav>
+    </header>
+
+    <section class="hero">
+        <div class="hero-overlay"></div>
+        <div class="hero-content">
+            <span class="tagline">Exclusive Collection 2026</span>
+            <h1>Redefine Your Cyber Style</h1>
+            <p>Upgrade penampilanmu dengan koleksi pakaian premium dari Viorise. Desain modern, bahan terbaik, dan kenyamanan maksimal.</p>
+            <div class="hero-buttons">
+                <a href="#" class="btn btn-primary">Belanja Sekarang</a>
+                <a href="#" class="btn btn-secondary">Lihat Promo</a>
+            </div>
+        </div>
+    </section>
+
+    <section class="products-section">
+        <div class="section-header">
+            <div>
+                <h2 class="section-title">Trending Now</h2>
+                <p class="section-subtitle">Produk terlaris yang paling banyak dicari</p>
+            </div>
+            <a href="#" class="view-all">Lihat Semua →</a>
+        </div>
+
+        <div class="product-grid">
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge badge-hot">HOT</span>
+                    <div class="product-img">Oversized Cyber</div>
+                    <button class="wishlist-btn">♥</button>
+                </div>
+                <div class="product-info">
+                    <p class="category">T-Shirt / Unisex</p>
+                    <h3>Viorise Oversized Cyber Tee</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.8)</span></div>
+                    <div class="price-box">
+                        <span class="price">Rp 169.000</span>
+                        <span class="old-price">Rp 249.000</span>
+                    </div>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge badge-discount">-30%</span>
+                    <div class="product-img">Linen Jacket</div>
+                    <button class="wishlist-btn">♥</button>
+                </div>
+                <div class="product-info">
+                    <p class="category">Outerwear / Men</p>
+                    <h3>Premium Linen Cyber Jacket</h3>
+                    <div class="rating">⭐⭐⭐⭐☆ <span>(4.5)</span></div>
+                    <div class="price-box">
+                        <span class="price">Rp 279.000</span>
+                        <span class="old-price">Rp 399.000</span>
+                    </div>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <div class="product-img">Knit Dress</div>
+                    <button class="wishlist-btn">♥</button>
+                </div>
+                <div class="product-info">
+                    <p class="category">Dress / Women</p>
+                    <h3>Viorise Glass Knit Dress</h3>
+                    <div class="rating">⭐⭐⭐⭐⭐ <span>(4.9)</span></div>
+                    <div class="price-box">
+                        <span class="price">Rp 319.000</span>
+                    </div>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+            </div>
+
+            <div class="product-card">
+                <div class="product-img-wrapper">
+                    <span class="badge badge-new">NEW</span>
+                    <div class="product-img">Cargo Pants</div>
+                    <button class="wishlist-btn">♥</button>
+                </div>
+                <div class="product-info">
+                    <p class="category">Pants / Unisex</p>
+                    <h3>Tactical Slim Cargo Pants</h3>
+                    <div class="rating">⭐⭐⭐⭐☆ <span>(4.6)</span></div>
+                    <div class="price-box">
+                        <span class="price">Rp 249.000</span>
+                    </div>
+                    <button class="add-to-cart">Tambah ke Keranjang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="footer-content">
+            <p>&copy; 2026 <span class="logo-footer">VIORISE</span> Store. Built for Elegance.</p>
+        </div>
+    </footer>
+
+</body>
+</html>
