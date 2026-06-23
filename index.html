@@ -18,6 +18,52 @@
             scroll-behavior: smooth;
         }
 
+        /* --- Custom Music Toggle Button (Glassmorphism) --- */
+        .music-controller {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-btn {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.5);
+        }
+
+        .music-status {
+            font-size: 13px;
+            font-weight: 500;
+            color: #a0a0a5;
+            letter-spacing: 0.5px;
+        }
+
         /* --- Header & Navigation --- */
         header {
             position: fixed;
@@ -614,10 +660,15 @@
         }
     </style></head><body>
 
-    <audio id="bgMusic" autoplay loop>
+    <audio id="bgMusic" loop>
         <source src="music/musik.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
+
+    <div class="music-controller">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+        <span class="music-status" id="musicStatus">Music: OFF</span>
+    </div>
 
     <header>
         <a href="javascript:void(0)" class="logo" onclick="switchPage('home')">VIORISE</a>
@@ -810,19 +861,28 @@
     <script>
         // --- Data Global Keranjang Belanja ---
         let cart = [];
-        const myAudio = document.getElementById("bgMusic");
 
-        // Fungsi pemicu putar otomatis sebagai antisipasi Autoplay Policy browser
-        function triggerAutoplay() {
+        // --- Sistem Pengendali Musik ---
+        const myAudio = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const musicStatus = document.getElementById("musicStatus");
+
+        function toggleMusic() {
             if (myAudio.paused) {
-                myAudio.play().catch(err => console.log("Menunggu interaksi pertama dari pengguna untuk memutar musik."));
+                myAudio.play().catch(err => console.log("Interaksi user diperlukan terlebih dahulu"));
+                musicBtn.innerText = "⏸"; 
+                musicStatus.innerText = "Music: ON";
+                musicStatus.style.color = "#ff7eb3"; 
+            } else {
+                myAudio.pause();
+                musicBtn.innerText = "▶"; 
+                musicStatus.innerText = "Music: OFF";
+                musicStatus.style.color = "#a0a0a5";
             }
         }
 
         // --- Sistem Slide Halaman Otomatis (SPA Engine) ---
         function switchPage(pageId) {
-            triggerAutoplay(); // Picu musik berbunyi ketika user berpindah halaman
-            
             const sections = document.querySelectorAll('.page-section');
             const navLinks = document.querySelectorAll('nav a');
             
@@ -847,7 +907,6 @@
 
         // --- Fitur Interaktif Tambah Keranjang ---
         function addToCart(title, price) {
-            triggerAutoplay();
             cart.push({ title: title, price: price });
             updateCartUI();
             alert(`${title} berhasil ditambahkan ke keranjang!`);
@@ -905,8 +964,10 @@
             let phone = document.getElementById('shippingPhone').value.trim();
             const address = document.getElementById('shippingAddress').value.trim();
 
+            // Pembersihan karakter input No HP
             phone = phone.replace(/[^0-9+]/g, ''); 
 
+            // Susun rincian teks barang
             let itemDetails = '';
             let total = 0;
             cart.forEach((item, index) => {
@@ -914,6 +975,7 @@
                 total += item.price;
             });
 
+            // Format Pesan WhatsApp
             const textMessage = 
                 `*PESANAN BARU - VIORISE STORE*\n` +
                 `-----------------------------------------\n` +
@@ -944,13 +1006,11 @@
             }
         });
 
+        // Handler klik Back to Top Smooth
         backToTopBtn.addEventListener('click', (e) => {
             e.preventDefault();
             window.scrollTo({top: 0, behavior: 'smooth'});
         });
-
-        // Event listener tambahan untuk memicu musik menyala begitu layar diklik
-        document.addEventListener('click', triggerAutoplay, { once: true });
     </script>
 </body>
 </html>
