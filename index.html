@@ -660,7 +660,7 @@
         }
     </style></head><body>
 
-    <audio id="musik/musik.mp3" loop>
+    <audio id="bgMusic" loop>
         <source src="music/musik.mp3" type="audio/mpeg">
         Browser Anda tidak mendukung elemen audio.
     </audio>
@@ -668,6 +668,9 @@
     <div class="music-controller">
         <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
         <span class="music-status" id="musicStatus">Music: OFF</span>
+        
+        <label for="musicUploader" style="cursor: pointer; font-size: 14px; margin-left: 5px;" title="Ganti Musik">📁</label>
+        <input type="file" id="musicUploader" accept="audio/*" onchange="changeMusic(this)" style="display: none;">
     </div>
 
     <header>
@@ -881,6 +884,28 @@
             }
         }
 
+        // --- Fitur Mengganti File Musik Menggunakan File Uploader ---
+        function changeMusic(input) {
+            const file = input.files[0];
+            if (file) {
+                const objectURL = URL.createObjectURL(file);
+                
+                // Hentikan musik yang lama
+                myAudio.pause();
+                
+                // Ganti sumber file audio ke musik baru yang diunggah
+                myAudio.src = objectURL;
+                
+                // Reset visual state tombol pemutar
+                musicBtn.innerText = "▶"; 
+                musicStatus.innerText = "Music: OFF";
+                musicStatus.style.color = "#a0a0a5";
+                
+                // Mainkan otomatis lagu baru yang dipilih
+                toggleMusic();
+            }
+        }
+
         // --- Sistem Slide Halaman Otomatis (SPA Engine) ---
         function switchPage(pageId) {
             const sections = document.querySelectorAll('.page-section');
@@ -964,7 +989,7 @@
             let phone = document.getElementById('shippingPhone').value.trim();
             const address = document.getElementById('shippingAddress').value.trim();
 
-            // Pembersihan karakter input No HP
+            // Pembersihan karakter masukan nomor ponsel dari spasi/simbol
             phone = phone.replace(/[^0-9+]/g, ''); 
 
             // Susun rincian teks barang
@@ -975,7 +1000,7 @@
                 total += item.price;
             });
 
-            // Format Pesan WhatsApp
+            // Format Struktur Teks Pesanan WhatsApp
             const textMessage = 
                 `*PESANAN BARU - VIORISE STORE*\n` +
                 `-----------------------------------------\n` +
