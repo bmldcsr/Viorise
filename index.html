@@ -19,6 +19,52 @@
             overflow-x: hidden;
         }
 
+        /* --- Custom Music Toggle Button (Glassmorphism) --- */
+        .music-controller {
+            position: fixed;
+            bottom: 25px;
+            left: 25px;
+            z-index: 2000;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            background: rgba(255, 255, 255, 0.05);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 8px 16px;
+            border-radius: 30px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        }
+
+        .music-btn {
+            background: linear-gradient(45deg, #ff758c, #ff7eb3);
+            border: none;
+            color: white;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-weight: bold;
+            font-size: 14px;
+            transition: transform 0.2s, box-shadow 0.2s;
+            box-shadow: 0 4px 10px rgba(255, 117, 140, 0.3);
+        }
+
+        .music-btn:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 15px rgba(255, 117, 140, 0.5);
+        }
+
+        .music-status {
+            font-size: 13px;
+            font-weight: 500;
+            color: #a0a0a5;
+            letter-spacing: 0.5px;
+        }
+
         /* --- Header & Navigation --- */
         header {
             position: fixed;
@@ -130,7 +176,7 @@
             gap: 30px;
         }
 
-        /* --- Product Card with Glassmorphism & Animations --- */
+        /* --- Product Card --- */
         .product-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -168,7 +214,6 @@
             transition: transform 0.5s ease;
         }
 
-        /* Zoom effect on hover */
         .product-card:hover img {
             transform: scale(1.1);
         }
@@ -216,29 +261,27 @@
 
         /* --- Keyframe Animations --- */
         @keyframes fadeInDown {
-            from {
-                opacity: 0;
-                transform: translateY(-3px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(-3px); }
+            to { opacity: 1; transform: translateY(0); }
         }
 
         @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
     </style>
 </head>
 <body>
+
+    <audio id="bgMusic" loop>
+        <source src="musik.mp3" type="audio/mpeg">
+        Browser Anda tidak mendukung elemen audio.
+    </audio>
+
+    <div class="music-controller">
+        <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
+        <span class="music-status" id="musicStatus">Music: OFF</span>
+    </div>
 
     <header>
         <a href="#" class="logo">VIORISE</a>
@@ -302,6 +345,26 @@
     <footer>
         &copy; 2026 Viorise Store. All rights reserved.
     </footer>
+
+    <script>
+        const myAudio = document.getElementById("bgMusic");
+        const musicBtn = document.getElementById("musicBtn");
+        const musicStatus = document.getElementById("musicStatus");
+
+        function toggleMusic() {
+            if (myAudio.paused) {
+                myAudio.play();
+                musicBtn.innerText = "⏸"; // Berubah jadi ikon pause
+                musicStatus.innerText = "Music: ON";
+                musicStatus.style.color = "#ff7eb3"; // Berubah warna pink saat menyala
+            } else {
+                myAudio.pause();
+                musicBtn.innerText = "▶"; // Kembali jadi ikon play
+                musicStatus.innerText = "Music: OFF";
+                musicStatus.style.color = "#a0a0a5";
+            }
+        }
+    </script>
 
 </body>
 </html>
