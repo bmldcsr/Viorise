@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Viorise Store - Premium Style</title>
+    <title>Viorise Store - Koleksi Fashion</title>
     <style>
         /* --- Reset & Base Styles --- */
         * {
@@ -20,7 +20,7 @@
             scroll-behavior: smooth;
         }
 
-        /* --- Custom Music Toggle Button (Glassmorphism) --- */
+        /* --- Music Controller --- */
         .music-controller {
             position: fixed;
             bottom: 25px;
@@ -96,13 +96,15 @@
         nav {
             display: flex;
             align-items: center;
+            flex-wrap: wrap;
+            gap: 10px;
         }
 
         nav a {
             color: #a0a0a5;
             text-decoration: none;
             font-weight: 500;
-            margin-left: 35px;
+            margin-left: 25px;
             transition: color 0.3s ease;
             cursor: pointer;
             position: relative;
@@ -112,7 +114,6 @@
             color: #ff7eb3;
         }
 
-        /* Badges Keranjang Belanja di Navigasi */
         .cart-badge {
             background: #ff758c;
             color: white;
@@ -124,7 +125,7 @@
             right: -15px;
         }
 
-        /* --- Sistem Slide Halaman (Page Engine) --- */
+        /* --- Page Sections --- */
         .page-section {
             display: none;
             opacity: 0;
@@ -140,7 +141,7 @@
             transform: translateY(0);
         }
 
-        /* --- Hero Section (Halaman Home) --- */
+        /* --- Hero Section --- */
         .hero {
             height: 80vh;
             display: flex;
@@ -150,7 +151,7 @@
             text-align: center;
             padding: 0 20px;
             background: radial-gradient(circle at center, #2a1b3d 0%, #121214 70%);
-            margin-top: 0px;
+            margin-top: 0;
         }
 
         .hero h1 {
@@ -164,6 +165,7 @@
             color: #a0a0a5;
             max-width: 600px;
             margin-bottom: 30px;
+            line-height: 1.6;
         }
 
         .cta-btn {
@@ -176,6 +178,8 @@
             box-shadow: 0 4px 15px rgba(255, 117, 140, 0.4);
             transition: transform 0.3s ease, box-shadow 0.3s ease;
             cursor: pointer;
+            border: none;
+            font-size: 16px;
         }
 
         .cta-btn:hover {
@@ -212,7 +216,6 @@
             gap: 30px;
         }
 
-        /* --- Product Card --- */
         .product-card {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.05);
@@ -220,8 +223,7 @@
             padding: 20px;
             text-align: center;
             backdrop-filter: blur(5px);
-            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), border-color 0.3s, box-shadow 0.4s;
-            position: relative;
+            transition: transform 0.4s ease, border-color 0.3s, box-shadow 0.4s;
             overflow: hidden;
         }
 
@@ -277,6 +279,7 @@
             border-radius: 8px;
             cursor: pointer;
             transition: all 0.3s ease;
+            font-size: 15px;
         }
 
         .product-card:hover .buy-btn {
@@ -285,22 +288,22 @@
             border-color: white;
         }
 
-        /* --- Keranjang / Cart Halaman Khusus --- */
+        /* --- Cart Section --- */
         .cart-container {
             padding: 40px 8%;
             max-width: 1200px;
             margin: 0 auto;
         }
 
-        .cart-wrapper {
+        .cart-layout {
             display: grid;
             grid-template-columns: 1.5fr 1fr;
             gap: 40px;
             margin-top: 30px;
         }
 
-        @media (max-width: 900px) {
-            .cart-wrapper {
+        @media (max-width: 992px) {
+            .cart-layout {
                 grid-template-columns: 1fr;
             }
         }
@@ -309,81 +312,122 @@
             background: rgba(255, 255, 255, 0.02);
             border: 1px solid rgba(255, 255, 255, 0.05);
             border-radius: 16px;
-            padding: 20px;
-            max-height: 500px;
-            overflow-y: auto;
-        }
-
-        .cart-empty {
-            text-align: center;
-            color: #a0a0a5;
-            padding: 40px 0;
+            padding: 25px;
         }
 
         .cart-item {
             display: flex;
-            justify-content: space-between;
             align-items: center;
+            justify-content: space-between;
             padding: 15px 0;
             border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+            gap: 15px;
+            flex-wrap: wrap;
         }
 
         .cart-item:last-child {
             border-bottom: none;
         }
 
-        .cart-item-info h4 {
-            font-size: 16px;
-            color: #fff;
-            margin-bottom: 5px;
+        .cart-item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
         }
 
-        .cart-item-info p {
+        .cart-item-img {
+            width: 60px;
+            height: 60px;
+            border-radius: 8px;
+            object-fit: cover;
+            background: #1c1c21;
+        }
+
+        .cart-item-detail h4 {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-detail p {
             font-size: 14px;
             color: #ff7eb3;
             font-weight: 500;
         }
 
-        .remove-item-btn {
+        .cart-item-qty {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .qty-btn {
+            background: rgba(255, 255, 255, 0.1);
+            border: none;
+            color: white;
+            width: 28px;
+            height: 28px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+
+        .qty-btn:hover {
+            background: #ff7eb3;
+        }
+
+        .delete-item-btn {
             background: transparent;
             border: none;
             color: #ff758c;
             cursor: pointer;
             font-size: 14px;
+            margin-left: 10px;
+            padding: 4px 6px;
+            border-radius: 4px;
+            transition: background 0.2s;
         }
 
-        .remove-item-btn:hover {
-            text-decoration: underline;
+        .delete-item-btn:hover {
+            background: rgba(255, 117, 140, 0.1);
         }
 
-        .cart-summary {
+        .cart-summary-box {
             background: rgba(255, 255, 255, 0.03);
             border: 1px solid rgba(255, 255, 255, 0.08);
             border-radius: 16px;
-            padding: 25px;
+            padding: 30px;
             height: fit-content;
         }
 
-        .cart-summary h3 {
-            margin-bottom: 20px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-            padding-bottom: 10px;
-        }
-
-        .total-price-box {
+        .summary-row {
             display: flex;
             justify-content: space-between;
-            font-size: 18px;
-            font-weight: 600;
-            margin-bottom: 25px;
-            color: #fff;
+            margin-bottom: 15px;
+            font-size: 15px;
+            color: #a0a0a5;
         }
 
-        .total-price-box span:last-child {
+        .summary-row.total {
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            padding-top: 15px;
+            font-size: 18px;
+            color: #fff;
+            font-weight: 600;
+        }
+
+        .summary-row.total span:last-child {
             color: #ff7eb3;
         }
 
-        /* --- TikTok Section Styling --- */
+        .empty-cart-msg {
+            text-align: center;
+            padding: 50px 20px;
+            color: #a0a0a5;
+        }
+
+        /* --- Trending / TikTok Section --- */
         .tiktok-container {
             padding: 40px 8%;
             display: flex;
@@ -413,7 +457,7 @@
             width: 100%;
         }
 
-        /* --- Contact Form Section --- */
+        /* --- Contact Section --- */
         .contact-container {
             padding: 40px 8%;
             max-width: 1000px;
@@ -422,9 +466,10 @@
 
         .contact-wrapper {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
             gap: 40px;
             margin-top: 40px;
+            align-items: stretch;
         }
 
         .contact-form {
@@ -432,6 +477,7 @@
             padding: 30px;
             border-radius: 16px;
             border: 1px solid rgba(255, 255, 255, 0.05);
+            height: 100%;
         }
 
         .form-group {
@@ -445,7 +491,9 @@
             font-size: 14px;
         }
 
-        .form-group input, .form-group textarea, .form-group select {
+        .form-group input, 
+        .form-group textarea, 
+        .form-group select {
             width: 100%;
             padding: 12px;
             background: #1c1c21;
@@ -456,7 +504,9 @@
             transition: border-color 0.3s;
         }
 
-        .form-group input:focus, .form-group textarea:focus, .form-group select:focus {
+        .form-group input:focus, 
+        .form-group textarea:focus, 
+        .form-group select:focus {
             border-color: #ff7eb3;
             outline: none;
         }
@@ -471,21 +521,44 @@
             font-weight: 600;
             width: 100%;
             transition: opacity 0.3s;
+            font-size: 16px;
         }
 
         .submit-btn:hover {
             opacity: 0.9;
         }
 
-        .map-wrapper {
-            border-radius: 16px;
-            overflow: hidden;
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            height: 100%;
-            min-height: 300px;
+        .map-container {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
         }
 
-        /* --- WhatsApp Section Slide Styling --- */
+        .map-title {
+            font-size: 18px;
+            color: #fff;
+            font-weight: 500;
+            margin-bottom: 5px;
+        }
+
+        .map-wrapper {
+            flex: 1;
+            border-radius: 16px;
+            overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            height: 100%;
+            min-height: 380px;
+            background: #1c1c21;
+        }
+
+        .map-wrapper iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+
+        /* --- WhatsApp Section --- */
         .whatsapp-section {
             display: flex;
             flex-direction: column;
@@ -554,7 +627,7 @@
             box-shadow: 0 6px 20px rgba(37, 211, 102, 0.5);
         }
 
-        /* --- Tombol Back to Top --- */
+        /* --- Back to Top --- */
         .back-to-top {
             position: fixed;
             bottom: 25px;
@@ -591,13 +664,13 @@
             font-size: 14px;
         }
 
-        /* --- Keyframe Animations --- */
+        /* --- Animation --- */
         @keyframes fadeInDown {
             from { opacity: 0; transform: translateY(-10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Media Queries untuk Handphone (Layar Maksimal 768px) --- */
+        /* --- Responsive --- */
         @media (max-width: 768px) {
             header {
                 padding: 15px 4%;
@@ -605,47 +678,18 @@
                 gap: 12px;
             }
 
-            nav {
-                flex-wrap: wrap;
-                justify-content: center;
-                gap: 10px;
-            }
-
             nav a {
-                margin-left: 12px;
-                margin-right: 12px;
+                margin-left: 10px;
+                margin-right: 10px;
                 font-size: 14px;
-            }
-
-            .cart-badge {
-                top: -8px;
-                right: -13px;
-                font-size: 10px;
             }
 
             .hero h1 {
                 font-size: 32px;
-                line-height: 1.3;
-            }
-
-            .hero p {
-                font-size: 15px;
             }
 
             .page-section {
                 margin-top: 120px;
-            }
-
-            .products-container, .tiktok-container, .contact-container, .cart-container {
-                padding: 30px 4%;
-            }
-
-            .tiktok-grid {
-                grid-template-columns: 1fr;
-            }
-
-            .tiktok-wrapper iframe {
-                height: 480px !important;
             }
 
             .contact-wrapper {
@@ -653,15 +697,11 @@
             }
 
             .map-wrapper {
-                height: 250px;
+                min-height: 300px;
             }
 
-            .wa-card {
-                padding: 30px 20px;
-            }
-
-            .wa-card h2 {
-                font-size: 22px;
+            .tiktok-wrapper iframe {
+                height: 480px !important;
             }
         }
     </style>
@@ -670,8 +710,8 @@
 
     <audio id="bgMusic" loop>
         <source src="musik/musik.mp3" type="audio/mpeg">
-        Browser Anda tidak mendukung elemen audio.
-    </audio>
+        Browser Anda tidak mendukung pemutar musik.
+    
 
     <div class="music-controller">
         <button class="music-btn" id="musicBtn" onclick="toggleMusic()">▶</button>
@@ -686,166 +726,214 @@
             <a onclick="switchPage('trending')" id="nav-trending">Trending</a>
             <a onclick="switchPage('contact')" id="nav-contact">Contact</a>
             <a onclick="switchPage('whatsapp')" id="nav-whatsapp">WhatsApp</a>
-            <a onclick="switchPage('cart')" id="nav-cart" style="margin-left: 45px; color: #fff;">
-                🛒 Keranjang <span class="cart-badge" id="cartCount">0</span>
-            </a>
+            <a onclick="switchPage('cart')" id="nav-cart">Cart <span class="cart-badge" id="cartCount">0</span></a>
         </nav>
     </header>
 
+    <!-- Halaman Home -->
     <section class="page-section active-page" id="page-home">
         <div class="hero">
             <h1>Welcome to Viorise</h1>
-            <p>Temukan koleksi produk fashion dan item estetis terbaik untuk menunjang gaya hidup modernmu di sini.</p>
-            <a onclick="switchPage('products')" class="cta-btn">Jelajahi Produk</a>
+            <p>Temukan koleksi fashion lokal terbaru dan berkualitas, sesuai gaya yang sedang tren di TikTok.</p>
+            <a onclick="switchPage('products')" class="cta-btn">Lihat Semua Produk</a>
         </div>
     </section>
 
+    <!-- Halaman Produk -->
     <section class="page-section" id="page-products">
         <div class="products-container">
-            <h2 class="section-title">Produk Terbaru</h2>
+            <h2 class="section-title">Koleksi Produk</h2>
             <div class="product-grid">
+
+                <!-- 4 Jeans Seken -->
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 1">
+                        <img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=80" alt="Jeans Seken Biru">
                     </div>
-                    <h3 class="product-title">Viorise Minimalist Watch</h3>
-                    <div class="product-price">Rp 349.000</div>
-                    <button class="buy-btn" onclick="addToCart('Viorise Minimalist Watch', 349000)">Beli Sekarang</button>
+                    <h3 class="product-title">Jeans Seken Biru Standar</h3>
+                    <div class="product-price">Rp 125.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jeans Seken Biru Standar', 125000, 'https://images.unsplash.com/photo-1542272604-787c3835535d?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 2">
+                        <img src="https://images.unsplash.com/photo-1541099649105-f698b01df0bc?w=500&auto=format&fit=crop&q=80" alt="Jeans Seken Hitam">
                     </div>
-                    <h3 class="product-title">Aero Comfort Sneakers</h3>
-                    <div class="product-price">Rp 529.000</div>
-                    <button class="buy-btn" onclick="addToCart('Aero Comfort Sneakers', 529000)">Beli Sekarang</button>
+                    <h3 class="product-title">Jeans Seken Hitam Slimfit</h3>
+                    <div class="product-price">Rp 135.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jeans Seken Hitam Slimfit', 135000, 'https://images.unsplash.com/photo-1541099649105-f698b01df0bc?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="https://images.unsplash.com/photo-1572635196237-14b3f281503f?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 3">
+                        <img src="https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=500&auto=format&fit=crop&q=80" alt="Jeans Seken Krem">
                     </div>
-                    <h3 class="product-title">Urban Sun Glasses</h3>
-                    <div class="product-price">Rp 185.000</div>
-                    <button class="buy-btn" onclick="addToCart('Urban Sun Glasses', 185000)">Beli Sekarang</button>
+                    <h3 class="product-title">Jeans Seken Krem Oversize</h3>
+                    <div class="product-price">Rp 140.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jeans Seken Krem Oversize', 140000, 'https://images.unsplash.com/photo-1555689502-c4b22d76c56f?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
                 </div>
 
                 <div class="product-card">
                     <div class="product-img-container">
-                        <img src="https://images.unsplash.com/photo-1583394838336-acd977736f90?w=500&auto=format&fit=crop&q=60" alt="Produk Viorise 4">
+                        <img src="https://images.unsplash.com/photo-1582552938780-8d5328f35214?w=500&auto=format&fit=crop&q=80" alt="Jeans Seken Abu">
                     </div>
-                    <h3 class="product-title">Premium Wireless Audio</h3>
-                    <div class="product-price">Rp 799.000</div>
-                    <button class="buy-btn" onclick="addToCart('Premium Wireless Audio', 799000)">Beli Sekarang</button>
+                    <h3 class="product-title">Jeans Seken Abu Washed</h3>
+                    <div class="product-price">Rp 130.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jeans Seken Abu Washed', 130000, 'https://images.unsplash.com/photo-1582552938780-8d5328f35214?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
                 </div>
+
+                <!-- 3 Suwiter -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&auto=format&fit=crop&q=80" alt="Suwiter Polos">
+                    </div>
+                    <h3 class="product-title">Suwiter Polos Coklat</h3>
+                    <div class="product-price">Rp 95.000</div>
+                    <button class="buy-btn" onclick="addToCart('Suwiter Polos Coklat', 95000, 'https://images.unsplash.com/photo-1556821840-3a63f95609a7?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=80" alt="Suwiter Motif">
+                    </div>
+                    <h3 class="product-title">Suwiter Motif Retro</h3>
+                    <div class="product-price">Rp 110.000</div>
+                    <button class="buy-btn" onclick="addToCart('Suwiter Motif Retro', 110000, 'https://images.unsplash.com/photo-1576566588028-4147f3842f27?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&auto=format&fit=crop&q=80" alt="Suwiter Hoodie">
+                    </div>
+                    <h3 class="product-title">Suwiter Hoodie Hitam</h3>
+                    <div class="product-price">Rp 120.000</div>
+                    <button class="buy-btn" onclick="addToCart('Suwiter Hoodie Hitam', 120000, 'https://images.unsplash.com/photo-1583743814966-8936f5b7be1a?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
+                </div>
+
+                <!-- 3 Jaket Kalcer -->
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=80" alt="Jaket Denim">
+                    </div>
+                    <h3 class="product-title">Jaket Denim Kalcer</h3>
+                    <div class="product-price">Rp 175.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jaket Denim Kalcer', 175000, 'https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=80" alt="Jaket Bomber">
+                    </div>
+                    <h3 class="product-title">Jaket Bomber Hijau Army</h3>
+                    <div class="product-price">Rp 190.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jaket Bomber Hijau Army', 190000, 'https://images.unsplash.com/photo-1591047139829-d91aecb6caea?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1520975954732-35dd22299614?w=500&auto=format&fit=crop&q=80" alt="Jaket Parasut">
+                    </div>
+                    <h3 class="product-title">Jaket Parasut Kalcer</h3>
+                    <div class="product-price">Rp 165.000</div>
+                    <button class="buy-btn" onclick="addToCart('Jaket Parasut Kalcer', 165000, 'https://images.unsplash.com/photo-1520975954732-35dd22299614?w=500&auto=format&fit=crop&q=80')">Masukkan Keranjang</button>
+                </div>
+
             </div>
         </div>
     </section>
 
-    <section class="page-section" id="page-cart">
-        <div class="cart-container">
-            <h2 class="section-title">Keranjang Belanja</h2>
-            <div class="cart-wrapper">
-                <div class="cart-items-list" id="cartItemsList">
-                    <div class="cart-empty">Keranjang Anda masih kosong.</div>
-                </div>
-
-                <div class="cart-summary">
-                    <h3>Detail Pengiriman</h3>
-                    <form id="checkoutForm" onsubmit="checkoutToWhatsApp(event)">
-                        <div class="form-group">
-                            <label for="custName">Nama Penerima</label>
-                            <input type="text" id="custName" placeholder="Nama Lengkap Anda" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="custPhone">Nomor WhatsApp Hape</label>
-                            <input type="tel" id="custPhone" placeholder="Contoh: 08123456xxx" required>
-                        </div>
-                        <div class="form-group">
-                            <label for="custAddress">Alamat Lengkap Rumah</label>
-                            <textarea id="custAddress" rows="3" placeholder="Nama Jalan, No. Rumah, RT/RW, Kecamatan, Kota, Kode Pos" required></textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="custCourier">Opsi Kurir Kirim</label>
-                            <select id="custCourier" required>
-                                <option value="JNT Express">J&T Express</option>
-                                <option value="JNE Reguler">JNE Reguler</option>
-                                <option value="Sicepat">Sicepat Kargo</option>
-                            </select>
-                        </div>
-                        <div class="total-price-box">
-                            <span>Total Harga:</span>
-                            <span id="cartTotalPriceDisplay">Rp 0</span>
-                        </div>
-                        <button type="submit" class="submit-btn">Kirim Pesanan Via WhatsApp</button>
-                    </form>
-                </div>
-            </div>
-        </div>
-    </section>
-
+    <!-- Halaman Trending -->
     <section class="page-section" id="page-trending">
         <div class="tiktok-container">
-            <h2 class="section-title">Trending on TikTok</h2>
+            <h2 class="section-title">Trending di TikTok</h2>
             <div class="tiktok-grid">
                 <div class="tiktok-wrapper">
-                    <iframe 
-                        src="https://www.tiktok.com/player/v1/7500644734814129414?rel=0&autoplay=0" 
-                        style="width: 100%; height: 580px; border: none; border-radius: 12px;" 
-                        allow="fullscreen; autoplay; encrypted-media; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <iframe src="https://www.tiktok.com/embed/v2/7500644734814129414" width="100%" height="580" frameborder="0" allowfullscreen></iframe>
                 </div>
-
                 <div class="tiktok-wrapper">
-                    <iframe 
-                        src="https://www.tiktok.com/player/v1/7643454598908349714?rel=0&autoplay=0" 
-                        style="width: 100%; height: 580px; border: none; border-radius: 12px;" 
-                        allow="fullscreen; autoplay; encrypted-media; picture-in-picture" 
-                        allowfullscreen>
-                    </iframe>
+                    <iframe src="https://www.tiktok.com/embed/v2/7643454598908349714" width="100%" height="580" frameborder="0" allowfullscreen></iframe>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Halaman Kontak -->
     <section class="page-section" id="page-contact">
         <div class="contact-container">
             <h2 class="section-title">Hubungi Kami</h2>
             <div class="contact-wrapper">
-                <form class="contact-form" onsubmit="event.preventDefault(); alert('Pesan Anda berhasil dikirim!');">
+                <form class="contact-form" onsubmit="event.preventDefault(); alert('Pesan berhasil dikirim!');">
                     <div class="form-group">
-                        <label for="name">Nama Lengkap</label>
-                        <input type="text" id="name" placeholder="Masukkan nama Anda" required>
+                        <label>Nama Lengkap</label>
+                        <input type="text" required placeholder="Masukkan nama Anda">
                     </div>
                     <div class="form-group">
-                        <label for="email">Email</label>
-                        <input type="email" id="email" placeholder="Masukkan email Anda" required>
+                        <label>Email</label>
+                        <input type="email" required placeholder="contoh@gmail.com">
                     </div>
                     <div class="form-group">
-                        <label for="message">Pesan Anda</label>
-                        <textarea id="message" rows="5" placeholder="Tulis pesan atau pertanyaan Anda di sini..." required></textarea>
+                        <label>Pesan</label>
+                        <textarea rows="4" required placeholder="Tulis pesan Anda..."></textarea>
                     </div>
                     <button type="submit" class="submit-btn">Kirim Pesan</button>
                 </form>
-
-                <div class="map-wrapper">
-                    <iframe width="100%" height="100%" src="https://www.openstreetmap.org/export/embed.html?bbox=110.30%2C-7.85%2C110.45%2C-7.70&amp;layer=mapnik" style="border: 0;"></iframe>
+                <div class="map-container">
+                    <h3 class="map-title">Lokasi Kami</h3>
+                    <div class="map-wrapper">
+                        <iframe src="https://www.openstreetmap.org/export/embed.html?bbox=110.285,-7.785,110.405,-7.735&layer=mapnik&marker=-7.76,110.345" allowfullscreen></iframe>
+                    </div>
+                    <p style="text-align:center; color:#a0a0a5; margin-top:8px;">Semarang, Jawa Tengah</p>
                 </div>
             </div>
         </div>
     </section>
 
+    <!-- Halaman WhatsApp -->
     <section class="page-section" id="page-whatsapp">
         <div class="whatsapp-section">
             <div class="wa-card">
                 <div class="wa-icon">💬</div>
-                <h2>Chat via WhatsApp</h2>
-                <p>Ada pertanyaan mengenai produk, kustomisasi style, atau kendala transaksi? Hubungi admin kami langsung untuk respon instan.</p>
-                <a href="https://wa.me/6288225370995?text=Halo%20Admin%20Viorise,%20saya%20ingin%20bertanya%20tentang%20produk..." target="_blank" class="wa-btn">
-                    Hubungi via WhatsApp
-                </a>
+                <h2>Chat Langsung</h2>
+                <p>Ingin tanya stok, ukuran, atau cara pesan? Hubungi kami lewat WhatsApp, respon cepat!</p>
+                <a href="https://wa.me/6288225370995?text=Halo%20Admin,%20saya%20ingin%20tanya%20produk" target="_blank" class="wa-btn">Buka WhatsApp</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Halaman Keranjang -->
+    <section class="page-section" id="page-cart">
+        <div class="cart-container">
+            <h2 class="section-title">Keranjang Belanja</h2>
+            <div class="cart-layout">
+                <div class="cart-items-list" id="cartItemsContainer">
+                    <div class="empty-cart-msg">Keranjang belanja masih kosong.</div>
+                </div>
+                <div class="cart-summary-box">
+                    <h3>Ringkasan Pesanan</h3>
+                    <div class="summary-row">
+                        <span>Total Harga</span>
+                        <span id="subtotalPrice">Rp 0</span>
+                    </div>
+                    <div class="summary-row total">
+                        <span>Total Akhir</span>
+                        <span id="totalPrice">Rp 0</span>
+                    </div>
+                    <form id="checkoutForm" onsubmit="checkoutToWhatsApp(event)">
+                        <div class="form-group">
+                            <label>Nama Penerima</label>
+                            <input type="text" id="custName" required>
+                        </div>
+                        <div class="form-group">
+                            <label>No. WhatsApp</label>
+                            <input type="tel" id="custPhone" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Alamat Lengkap</label>
+                            <textarea id="custAddress" rows="3" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn">Pesan Sekarang</button>
+                    </form>
+                </div>
             </div>
         </div>
     </section>
@@ -853,160 +941,158 @@
     <a href="#" class="back-to-top" id="backToTop">▲</a>
 
     <footer>
-        © 2026 Viorise Store. All rights reserved.
+        © 2026 Viorise Store - Semarang | Semua Hak Dilindungi
     </footer>
 
+    <!-- JavaScript Lengkap & Berfungsi -->
     <script>
-        // --- Sistem Pengendali Musik ---
+        // --- Musik ---
         const myAudio = document.getElementById("bgMusic");
         const musicBtn = document.getElementById("musicBtn");
         const musicStatus = document.getElementById("musicStatus");
 
         function toggleMusic() {
             if (myAudio.paused) {
-                myAudio.play().catch(err => console.log("User interaction required"));
-                musicBtn.innerText = "⏸"; 
+                myAudio.play().catch(err => console.log("Klik untuk memutar musik"));
+                musicBtn.innerText = "⏸";
                 musicStatus.innerText = "Music: ON";
-                musicStatus.style.color = "#ff7eb3"; 
+                musicStatus.style.color = "#ff7eb3";
             } else {
                 myAudio.pause();
-                musicBtn.innerText = "▶"; 
+                musicBtn.innerText = "▶";
                 musicStatus.innerText = "Music: OFF";
                 musicStatus.style.color = "#a0a0a5";
             }
         }
 
-        // --- Sistem Slide Halaman Otomatis (SPA Engine) ---
+        // --- Navigasi Halaman ---
         function switchPage(pageId) {
-            const sections = document.querySelectorAll('.page-section');
-            const navLinks = document.querySelectorAll('nav a');
-            
-            sections.forEach(section => {
-                section.classList.remove('active-page');
-            });
-            navLinks.forEach(link => {
-                link.classList.remove('active-nav');
-            });
+            document.querySelectorAll('.page-section').forEach(sec => sec.classList.remove('active-page'));
+            document.querySelectorAll('nav a').forEach(link => link.classList.remove('active-nav'));
 
             const targetPage = document.getElementById('page-' + pageId);
-            if(targetPage) {
+            if (targetPage) {
                 targetPage.classList.add('active-page');
-                window.scrollTo(0,0);
+                window.scrollTo({ top: 0, behavior: 'smooth' });
             }
 
             const targetNav = document.getElementById('nav-' + pageId);
-            if(targetNav) {
-                targetNav.classList.add('active-nav');
+            if (targetNav) targetNav.classList.add('active-nav');
+
+            if (pageId === 'cart') renderCart();
+        }
+
+        // --- Keranjang Belanja ---
+        let cart = [];
+
+        function addToCart(name, price, img) {
+            const existing = cart.find(item => item.name === name);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ name, price, img, qty: 1 });
             }
+            updateBadge();
+            alert(`✅ ${name} berhasil ditambahkan!`);
         }
 
-        // --- SISTEM KERANJANG DAN CHECKOUT JAVASCRIPT ---
-        let cartData = []; // Menyimpan list produk yang dibeli
-
-        function addToCart(productName, productPrice) {
-            // Masukkan data barang ke array keranjang
-            cartData.push({
-                name: productName,
-                price: productPrice
-            });
-
-            // Update badge angka di navigasi atas
-            document.getElementById('cartCount').innerText = cartData.length;
-            
-            // Perbarui visual daftar isi keranjang belanjaan
-            renderCart();
-            
-            alert(`${productName} berhasil dimasukkan ke keranjang belanja!`);
+        function updateBadge() {
+            const total = cart.reduce((sum, item) => sum + item.qty, 0);
+            document.getElementById('cartCount').innerText = total;
         }
 
-        function removeCartItem(index) {
-            // Hapus barang sesuai index urutannya
-            cartData.splice(index, 1);
-            document.getElementById('cartCount').innerText = cartData.length;
+        function changeQty(index, delta) {
+            cart[index].qty += delta;
+            if (cart[index].qty <= 0) cart.splice(index, 1);
+            updateBadge();
             renderCart();
+        }
+
+        function formatRupiah(angka) {
+            return new Intl.NumberFormat('id-ID', {
+                style: 'currency',
+                currency: 'IDR',
+                minimumFractionDigits: 0
+            }).format(angka);
         }
 
         function renderCart() {
-            const listContainer = document.getElementById('cartItemsList');
-            const totalDisplay = document.getElementById('cartTotalPriceDisplay');
-            
-            if (cartData.length === 0) {
-                listContainer.innerHTML = '<div class="cart-empty">Keranjang Anda masih kosong.</div>';
-                totalDisplay.innerText = "Rp 0";
+            const container = document.getElementById('cartItemsContainer');
+            if (cart.length === 0) {
+                container.innerHTML = `<div class="empty-cart-msg">Keranjang belanja masih kosong.</div>`;
+                document.getElementById('subtotalPrice').innerText = formatRupiah(0);
+                document.getElementById('totalPrice').innerText = formatRupiah(0);
                 return;
             }
 
-            let htmlContent = "";
-            let grandTotal = 0;
-
-            cartData.forEach((item, index) => {
-                grandTotal += item.price;
-                htmlContent += `
+            let html = '';
+            let subtotal = 0;
+            cart.forEach((item, index) => {
+                const totalItem = item.price * item.qty;
+                subtotal += totalItem;
+                html += `
                     <div class="cart-item">
                         <div class="cart-item-info">
-                            <h4>${item.name}</h4>
-                            <p>Rp ${item.price.toLocaleString('id-ID')}</p>
+                            <img src="${item.img}" class="cart-item-img" alt="${item.name}">
+                            <div class="cart-item-detail">
+                                <h4>${item.name}</h4>
+                                <p>${formatRupiah(item.price)}</p>
+                            </div>
                         </div>
-                        <button class="remove-item-btn" onclick="removeCartItem(${index})">Hapus</button>
+                        <div class="cart-item-qty">
+                            <button class="qty-btn" onclick="changeQty(${index}, -1)">−</button>
+                            <span>${item.qty}</span>
+                            <button class="qty-btn" onclick="changeQty(${index}, 1)">+</button>
+                            <button class="delete-item-btn" onclick="changeQty(${index}, -999)">Hapus</button>
+                        </div>
                     </div>
                 `;
             });
 
-            listContainer.innerHTML = htmlContent;
-            totalDisplay.innerText = "Rp " + grandTotal.toLocaleString('id-ID');
+            container.innerHTML = html;
+            document.getElementById('subtotalPrice').innerText = formatRupiah(subtotal);
+            document.getElementById('totalPrice').innerText = formatRupiah(subtotal);
         }
 
-        function checkoutToWhatsApp(event) {
-            event.preventDefault(); // Mencegah reload halaman web sewaktu klik submit
-
-            if (cartData.length === 0) {
-                alert("Keranjang masih kosong, silakan berbelanja terlebih dahulu.");
+        // --- Kirim Pesanan ke WhatsApp ---
+        function checkoutToWhatsApp(e) {
+            e.preventDefault();
+            if (cart.length === 0) {
+                alert("Keranjang masih kosong!");
                 return;
             }
 
-            // Ambil input data diri dari form pembeli
-            const name = document.getElementById('custName').value;
-            const phone = document.getElementById('custPhone').value;
-            const address = document.getElementById('custAddress').value;
-            const courier = document.getElementById('custCourier').value;
+            const nama = document.getElementById('custName').value;
+            const hp = document.getElementById('custPhone').value;
+            const alamat = document.getElementById('custAddress').value;
 
-            // Rangkai string text isi belanjaan pembeli
-            let itemText = "";
-            let grandTotal = 0;
-            cartData.forEach((item, index) => {
-                itemText += `${index + 1}. ${item.name} (Rp ${item.price.toLocaleString('id-ID')})\n`;
-                grandTotal += item.price;
+            let pesan = `*Pesanan Baru Viorise Store*%0A%0A`;
+            pesan += `*Nama:* ${nama}%0A`;
+            pesan += `*No HP:* ${hp}%0A`;
+            pesan += `*Alamat:* ${alamat}%0A%0A`;
+            pesan += `*Daftar Barang:*%0A`;
+
+            let total = 0;
+            cart.forEach(item => {
+                const jumlah = item.price * item.qty;
+                pesan += `- ${item.name} x${item.qty} = ${formatRupiah(jumlah)}%0A`;
+                total += jumlah;
             });
 
-            // Format template pesan rapi untuk admin WA
-            const waNumber = "6288225370995"; // Nomor whatsapp tujuan orderan toko kamu
-            const message = `*FORMAT PESANAN - VIORISE STORE*\n\n` +
-                            `*Detail Pelanggan:*\n` +
-                            `• Nama: ${name}\n` +
-                            `• HP: ${phone}\n` +
-                            `• Alamat: ${address}\n` +
-                            `• Ekspedisi: ${courier}\n\n` +
-                            `*Daftar Belanja:*\n${itemText}\n` +
-                            `*TOTAL PEMBAYARAN:* Rp ${grandTotal.toLocaleString('id-ID')}\n\n` +
-                            `Mohon diproses ya admin, terima kasih!`;
+            pesan += `%0A*Total Bayar:* ${formatRupiah(total)}%0A`;
+            pesan += `*Catatan:* Ongkos kirim dihitung terpisah.`;
 
-            // Encode string teks ke dalam URL link Whatsapp resmi
-            const encodedMessage = encodeURIComponent(message);
-            const waUrl = `https://wa.me/${waNumber}?text=${encodedMessage}`;
-
-            // Redirect buka link whatsapp di tab baru web browser
-            window.open(waUrl, '_blank');
+            const waLink = `https://wa.me/6288225370995?text=${pesan}`;
+            window.open(waLink, '_blank');
         }
 
-        // --- Deteksi Scroll untuk Tombol Back To Top ---
-        const backToTopBtn = document.getElementById('backToTop');
+        // --- Tombol Kembali ke Atas ---
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 300) {
-                backToTopBtn.classList.add('show');
-            } else {
-                backToTopBtn.classList.remove('show');
-            }
+            const btn = document.getElementById('backToTop');
+            if (window.scrollY > 300) btn.classList.add('show');
+            else btn.classList.remove('show');
         });
     </script>
+
 </body>
 </html>
