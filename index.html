@@ -1,6 +1,4 @@
-<!DOCTYPE html>
-<html lang="id">
-<head>
+<!DOCTYPE html><html lang="id"><head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Viorise Store - Premium Style</title>
@@ -285,6 +283,96 @@
             border-color: white;
         }
 
+        /* --- Halaman Keranjang Belanja & Alamat --- */
+        .cart-container {
+            padding: 40px 8%;
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .cart-layout {
+            display: grid;
+            grid-template-columns: 1.5fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+
+        .cart-items-list {
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            padding: 25px;
+            min-height: 200px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 15px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-detail h4 {
+            font-size: 16px;
+            color: #fff;
+            margin-bottom: 4px;
+        }
+
+        .cart-item-detail p {
+            font-size: 14px;
+            color: #ff7eb3;
+            font-weight: 600;
+        }
+
+        .remove-item-btn {
+            background: transparent;
+            border: none;
+            color: #ff758c;
+            cursor: pointer;
+            font-size: 14px;
+            font-weight: 600;
+        }
+
+        .cart-summary-form {
+            background: rgba(255, 255, 255, 0.03);
+            border: 1px solid rgba(255, 255, 255, 0.08);
+            border-radius: 20px;
+            padding: 30px;
+            height: fit-content;
+            backdrop-filter: blur(10px);
+        }
+
+        .cart-summary-form h3 {
+            font-size: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding-bottom: 10px;
+        }
+
+        .total-price-display {
+            display: flex;
+            justify-content: space-between;
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            color: #fff;
+        }
+
+        .total-price-display span:last-child {
+            color: #ff7eb3;
+        }
+
+        .empty-cart-msg {
+            text-align: center;
+            color: #a0a0a5;
+            padding: 40px 0;
+        }
+
         /* --- TikTok Section Styling --- */
         .tiktok-container {
             padding: 40px 8%;
@@ -499,16 +587,16 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
-        /* --- Media Queries untuk Handphone (Layar Maksimal 768px) --- */
+        /* --- Media Queries untuk Handphone --- */
         @media (max-width: 768px) {
             header {
                 padding: 15px 4%;
-                flex-direction: column; /* Membuat logo dan menu bertumpuk vertikal */
+                flex-direction: column;
                 gap: 12px;
             }
 
             nav {
-                flex-wrap: wrap; /* Supaya menu tidak meluber keluar layar */
+                flex-wrap: wrap;
                 justify-content: center;
                 gap: 10px;
             }
@@ -519,7 +607,6 @@
                 font-size: 14px;
             }
 
-            /* Perbaikan posisi badge keranjang di layar HP */
             .cart-badge {
                 top: -8px;
                 right: -13px;
@@ -527,7 +614,7 @@
             }
 
             .hero h1 {
-                font-size: 32px; /* Mengecilkan judul agar tidak pecah berantakan */
+                font-size: 32px;
                 line-height: 1.3;
             }
 
@@ -536,27 +623,31 @@
             }
 
             .page-section {
-                margin-top: 120px; /* Jarak atas disesuaikan dengan tinggi header HP */
+                margin-top: 120px;
             }
 
-            .products-container, .tiktok-container, .contact-container {
-                padding: 30px 4%; /* Memperkecil padding agar area konten di HP lebih luas */
+            .cart-layout {
+                grid-template-columns: 1fr;
+            }
+
+            .products-container, .tiktok-container, .contact-container, .cart-container {
+                padding: 30px 4%;
             }
 
             .tiktok-grid {
-                grid-template-columns: 1fr; /* Memaksa video TikTok berbaris satu per satu ke bawah */
+                grid-template-columns: 1fr;
             }
 
             .tiktok-wrapper iframe {
-                height: 480px !important; /* Menurunkan tinggi video agar pas di layar HP */
+                height: 480px !important;
             }
 
             .contact-wrapper {
-                grid-template-columns: 1fr; /* Form dan Map bertumpuk vertikal */
+                grid-template-columns: 1fr;
             }
 
             .map-wrapper {
-                height: 250px; /* Batasi tinggi maps agar tidak memakan layar */
+                height: 250px;
             }
 
             .wa-card {
@@ -567,9 +658,7 @@
                 font-size: 22px;
             }
         }
-    </style>
-</head>
-<body>
+    </style></head><body>
 
     <audio id="bgMusic" loop>
         <source src="music/musik.mp3" type="audio/mpeg">
@@ -582,10 +671,11 @@
     </div>
 
     <header>
-        <a href="#" class="logo" onclick="switchPage('home')">VIORISE</a>
+        <a href="javascript:void(0)" class="logo" onclick="switchPage('home')">VIORISE</a>
         <nav>
             <a onclick="switchPage('home')" id="nav-home" class="active-nav">Home</a>
-            <a onclick="switchPage('products')" id="nav-products">Products <span class="cart-badge" id="cartCount">0</span></a>
+            <a onclick="switchPage('products')" id="nav-products">Products</a>
+            <a onclick="switchPage('cart')" id="nav-cart">Cart <span class="cart-badge" id="cartCount">0</span></a>
             <a onclick="switchPage('trending')" id="nav-trending">Trending</a>
             <a onclick="switchPage('contact')" id="nav-contact">Contact</a>
             <a onclick="switchPage('whatsapp')" id="nav-whatsapp">WhatsApp</a>
@@ -610,7 +700,7 @@
                     </div>
                     <h3 class="product-title">Viorise Minimalist Watch</h3>
                     <div class="product-price">Rp 349.000</div>
-                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                    <button class="buy-btn" onclick="addToCart('Viorise Minimalist Watch', 349000)">Beli Sekarang</button>
                 </div>
 
                 <div class="product-card">
@@ -619,7 +709,7 @@
                     </div>
                     <h3 class="product-title">Aero Comfort Sneakers</h3>
                     <div class="product-price">Rp 529.000</div>
-                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                    <button class="buy-btn" onclick="addToCart('Aero Comfort Sneakers', 529000)">Beli Sekarang</button>
                 </div>
 
                 <div class="product-card">
@@ -628,7 +718,7 @@
                     </div>
                     <h3 class="product-title">Urban Sun Glasses</h3>
                     <div class="product-price">Rp 185.000</div>
-                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                    <button class="buy-btn" onclick="addToCart('Urban Sun Glasses', 185000)">Beli Sekarang</button>
                 </div>
 
                 <div class="product-card">
@@ -637,7 +727,61 @@
                     </div>
                     <h3 class="product-title">Premium Wireless Audio</h3>
                     <div class="product-price">Rp 799.000</div>
-                    <button class="buy-btn" onclick="addToCart()">Beli Sekarang</button>
+                    <button class="buy-btn" onclick="addToCart('Premium Wireless Audio', 799000)">Beli Sekarang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1551028719-00167b16eac5?w=500&auto=format&fit=crop&q=60" alt="Jaket Kalcer Viorise">
+                    </div>
+                    <h3 class="product-title">Viorise Vintage Culture Jacket</h3>
+                    <div class="product-price">Rp 450.000</div>
+                    <button class="buy-btn" onclick="addToCart('Viorise Vintage Culture Jacket', 450000)">Beli Sekarang</button>
+                </div>
+
+                <div class="product-card">
+                    <div class="product-img-container">
+                        <img src="https://images.unsplash.com/photo-1541099649105-f69ad21f3246?w=500&auto=format&fit=crop&q=60" alt="Celana Jeans Kalcer Viorise">
+                    </div>
+                    <h3 class="product-title">Viorise Loose-Fit Culture Jeans</h3>
+                    <div class="product-price">Rp 389.000</div>
+                    <button class="buy-btn" onclick="addToCart('Viorise Loose-Fit Culture Jeans', 389000)">Beli Sekarang</button>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="page-section" id="page-cart">
+        <div class="cart-container">
+            <h2 class="section-title">Keranjang Belanja</h2>
+            <div class="cart-layout">
+                <div class="cart-items-list" id="cartItemsContainer">
+                    <div class="empty-cart-msg">Keranjang Anda masih kosong. Yuk, tambahkan produk!</div>
+                </div>
+
+                <div class="cart-summary-form">
+                    <h3>Detail Pengiriman</h3>
+                    <div class="total-price-display">
+                        <span>Total Pembayaran:</span>
+                        <span id="totalCartPrice">Rp 0</span>
+                    </div>
+                    <form onsubmit="checkoutToWhatsApp(event)">
+                        <div class="form-group">
+                            <label for="shippingName">Nama Penerima</label>
+                            <input type="text" id="shippingName" placeholder="Nama lengkap Anda" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shippingPhone">Nomor HP / WhatsApp</label>
+                            <input type="tel" id="shippingPhone" placeholder="Contoh: 088225370995" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="shippingAddress">Alamat Lengkap Pengantaran</label>
+                            <textarea id="shippingAddress" rows="4" placeholder="Tulis jalan, nomor rumah, RT/RW, kelurahan, kecamatan, kota/kabupaten" required></textarea>
+                        </div>
+                        <button type="submit" class="submit-btn" style="background: linear-gradient(135deg, #25D366, #128C7E);">
+                            Checkout via WhatsApp
+                        </button>
+                    </form>
                 </div>
             </div>
         </div>
@@ -708,13 +852,16 @@
         </div>
     </section>
 
-    <a href="#" class="back-to-top" id="backToTop">▲</a>
+    <a href="javascript:void(0)" class="back-to-top" id="backToTop">▲</a>
 
     <footer>
         © 2026 Viorise Store. All rights reserved.
     </footer>
 
     <script>
+        // --- Data Global Keranjang Belanja ---
+        let cart = [];
+
         // --- Sistem Pengendali Musik ---
         const myAudio = document.getElementById("bgMusic");
         const musicBtn = document.getElementById("musicBtn");
@@ -722,7 +869,7 @@
 
         function toggleMusic() {
             if (myAudio.paused) {
-                myAudio.play().catch(err => console.log("User interaction required"));
+                myAudio.play().catch(err => console.log("Interaksi user diperlukan terlebih dahulu"));
                 musicBtn.innerText = "⏸"; 
                 musicStatus.innerText = "Music: ON";
                 musicStatus.style.color = "#ff7eb3"; 
@@ -749,7 +896,7 @@
             const targetPage = document.getElementById('page-' + pageId);
             if(targetPage) {
                 targetPage.classList.add('active-page');
-                window.scrollTo(0,0);
+                window.scrollTo({top: 0, behavior: 'smooth'});
             }
 
             const targetNav = document.getElementById('nav-' + pageId);
@@ -759,11 +906,94 @@
         }
 
         // --- Fitur Interaktif Tambah Keranjang ---
-        let count = 0;
-        function addToCart() {
-            count++;
-            document.getElementById('cartCount').innerText = count;
-            alert("Produk berhasil ditambahkan ke keranjang!");
+        function addToCart(title, price) {
+            cart.push({ title: title, price: price });
+            updateCartUI();
+            alert(`${title} berhasil ditambahkan ke keranjang!`);
+        }
+
+        // --- Hapus Item dari Keranjang ---
+        function removeFromCart(index) {
+            cart.splice(index, 1);
+            updateCartUI();
+        }
+
+        // --- Update UI Tampilan Keranjang ---
+        function updateCartUI() {
+            document.getElementById('cartCount').innerText = cart.length;
+
+            const container = document.getElementById('cartItemsContainer');
+            const totalDisplay = document.getElementById('totalCartPrice');
+            
+            if (cart.length === 0) {
+                container.innerHTML = '<div class="empty-cart-msg">Keranjang Anda masih kosong. Yuk, tambahkan produk!</div>';
+                totalDisplay.innerText = 'Rp 0';
+                return;
+            }
+
+            let htmlContent = '';
+            let total = 0;
+
+            cart.forEach((item, index) => {
+                total += item.price;
+                htmlContent += `
+                    <div class="cart-item">
+                        <div class="cart-item-detail">
+                            <h4>${item.title}</h4>
+                            <p>Rp ${item.price.toLocaleString('id-ID')}</p>
+                        </div>
+                        <button class="remove-item-btn" onclick="removeFromCart(${index})">Hapus</button>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+            totalDisplay.innerText = `Rp ${total.toLocaleString('id-ID')}`;
+        }
+
+        // --- Sistem Checkout & Format Pesan WhatsApp ---
+        function checkoutToWhatsApp(event) {
+            event.preventDefault(); 
+
+            if (cart.length === 0) {
+                alert("Keranjang Anda kosong! Silakan pilih produk terlebih dahulu.");
+                return;
+            }
+
+            const name = document.getElementById('shippingName').value.trim();
+            let phone = document.getElementById('shippingPhone').value.trim();
+            const address = document.getElementById('shippingAddress').value.trim();
+
+            // Pembersihan karakter input No HP
+            phone = phone.replace(/[^0-9+]/g, ''); 
+
+            // Susun rincian teks barang
+            let itemDetails = '';
+            let total = 0;
+            cart.forEach((item, index) => {
+                itemDetails += `${index + 1}. ${item.title} - Rp ${item.price.toLocaleString('id-ID')}\n`;
+                total += item.price;
+            });
+
+            // Format Pesan WhatsApp
+            const textMessage = 
+                `*PESANAN BARU - VIORISE STORE*\n` +
+                `-----------------------------------------\n` +
+                `*Detail Pengiriman:*\n` +
+                `• Nama Penerima : ${name}\n` +
+                `• No. HP / WA    : ${phone}\n` +
+                `• Alamat Lengkap: ${address}\n\n` +
+                `*Daftar Belanja:*\n` +
+                `${itemDetails}\n` +
+                `-----------------------------------------\n` +
+                `*TOTAL PEMBAYARAN:* *Rp ${total.toLocaleString('id-ID')}*\n` +
+                `-----------------------------------------\n` +
+                `Mohon segera diproses ya Admin, terima kasih!`;
+
+            const encodedText = encodeURIComponent(textMessage);
+            const waUrl = `https://wa.me/6288225370995?text=${encodedText}`;
+
+            window.open(waUrl, '_blank');
         }
 
         // --- Deteksi Scroll untuk Tombol Back To Top ---
@@ -774,6 +1004,12 @@
             } else {
                 backToTopBtn.classList.remove('show');
             }
+        });
+
+        // Handler klik Back to Top Smooth
+        backToTopBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            window.scrollTo({top: 0, behavior: 'smooth'});
         });
     </script>
 </body>
